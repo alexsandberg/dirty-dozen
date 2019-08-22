@@ -1,7 +1,7 @@
 
 function getInput() {
-  const location = $("#location-input").val();
-  // $("#data").html(locationData);
+  const location = $('#state option:selected').val();
+  console.log(location);
   getData();
 }
 
