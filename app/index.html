@@ -33,13 +33,12 @@
             <a href="#" class="nav-link">Contact</a>
           </li>
         </ul>
-        <h3 class="text-muted">climate app</h3>
+        <h3 class="text-muted">dirty doz</h3>
       </div>
 
       <div class="jumbotron">
         <h3 class="text-muted">where do you live?</h1>
-          select your state
-          <select id="state">
+          <span>select state</span><select id="state">
             <option value="AL">Alabama (AL)</option>
             <option value="AK">Alaska (AK)</option>
             <option value="AZ">Arizona (AZ)</option>
@@ -91,7 +90,17 @@
             <option value="WV">West Virginia</option>
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
-          </select> 
+          </select>
+          <span>select year</span><select id="year">
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+            <option value="2012">2012</option>
+            <option value="2011">2011</option>
+            <option value="2010">2010</option>
+          </select>  
           <button id="location-btn" onclick="getInput()" class="btn btn-lg btn-success">go</button>
         <!-- <p id="data">data: </p> -->
         <!-- <p class="lead">Always a pleasure scaffolding your apps.</p>
@@ -100,22 +109,6 @@
       </div>
 
       <!-- <div id="picture"></div> -->
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>HTML5 Boilerplate</h4>
-          <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
-
-
-          <h4>Bootstrap</h4>
-          <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
-
-        </div>
-      </div>
-
-      <div class="footer">
-        <p>♥ from the Yeoman team</p>
-      </div>
     </div>
     <!-- build:js scripts/vendor.js -->
     <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>

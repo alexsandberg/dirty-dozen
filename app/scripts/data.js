@@ -1,27 +1,36 @@
 
 
-let year = 2017;
-let state = 'CO';
+// let year = 2017;
+// let state = 'CO';
 
 
-function getData() {
+function getData(state, year) {
 	let results = [];
+	let subResults = [];
 	let dirtyDoz = [];
 	
 	$.getJSON( "data/csvjson.json", function( json ) {
-    	json.forEach(obj => {
+		results = json.map(a => ({...a}));
+
+    	results.forEach(obj => {
 			if(obj.YEAR === year && obj.STATE === state) {
-				results.push(obj);
+				subResults.push(obj);
 			}
 		})
 
-    	results.sort(function(a,b) {
+    	subResults.sort(function(a,b) {
 			return b.CO2E_EMISSION - a.CO2E_EMISSION;
 		});
 
-		dirtyDoz = results.slice(0,12);
+		dirtyDoz = subResults.slice(0,12);
 
-		console.log('DIRTY DOZEN: ' + JSON.stringify(dirtyDoz) );
+		let dirtyNames = [];
+
+		dirtyDoz.forEach(function(obj) {
+			dirtyNames.push(obj.FACILITY_NAME)
+		})
+
+		console.log( dirtyNames );
 	});
 }
 
