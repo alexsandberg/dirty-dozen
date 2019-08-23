@@ -33,7 +33,7 @@ function getData(state, year) {
 
     let count = 1;
 
-    // add new results elements 
+    // add new results elements and add listeners
     dirtyDoz.forEach(function(obj) {
       appendText(obj, count);
       count++;
@@ -49,10 +49,18 @@ function createHead() {
 }
 
 function appendText(obj, count) {
-  let li = `<li id="facility-${count}">${count}. ${obj.FACILITY_NAME}</li>`;               // Create element with HTML  
+  let liID = `facility-${count}`;
+  let li = `<li id="${liID}">${count}. ${obj.FACILITY_NAME}</li>`;               // Create element with HTML  
   let co2 = `<p>CO2e emitted: ${obj.CO2E_EMISSION.toLocaleString()} metric tons</p>`
   let more = `<a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${obj.FACILITY_ID}&pSp=1&pReportingYear=${parseInt($('#year option:selected').val(), 10)}" target="_blank">more information</a>`
   $("#results").append(li);
   $(`#facility-${count}`).append(co2, more);
+  resultsListeners(liID);
 }
 
+function resultsListeners(id) {
+  let currentEl = $(`#${id}`);
+  $(currentEl).on('click', (e) => {
+    console.log(currentEl);
+  })
+}
