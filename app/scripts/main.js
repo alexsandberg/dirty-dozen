@@ -41,7 +41,6 @@ function getData(state, year) {
   });
 }
 
-// https://enviro.epa.gov/enviro/ghgreport.html?pFacId=1000742&pSp=1&pReportingYear=2017
 
 function createHead() {
   let stateName = $('#state option:selected').text();
@@ -50,8 +49,8 @@ function createHead() {
 }
 
 function appendText(obj, count) {
-  let li = `<li id="facility-${count}">${obj.FACILITY_NAME}</li>`;               // Create element with HTML  
-  let co2 = `<p>CO2e emitted: ${obj.CO2E_EMISSION} metric tons</p>`
+  let li = `<li id="facility-${count}">${count}. ${obj.FACILITY_NAME}</li>`;               // Create element with HTML  
+  let co2 = `<p>CO2e emitted: ${obj.CO2E_EMISSION.toLocaleString()} metric tons</p>`
   let more = `<a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${obj.FACILITY_ID}&pSp=1&pReportingYear=${parseInt($('#year option:selected').val(), 10)}" target="_blank">more information</a>`
   $("#results").append(li);
   $(`#facility-${count}`).append(co2, more);
