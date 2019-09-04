@@ -26,7 +26,7 @@ function getData(state, year) {
     dirtyDoz = subResults.slice(0,12);
 
     // clear results if present
-    $('#results-container').empty();
+    $('#results-list').empty();
 
     // add new results head
     createHead();
@@ -44,13 +44,13 @@ function getData(state, year) {
 
 function createHead() {
   let stateName = $('#state option:selected').text();
-  $('#results-container').append(`<h2 id="results-title">${stateName}'s ${parseInt($('#year option:selected').val(), 10)} Dirty Dozen</h2>`);
-  $('#results-container').append(`<ol id="results"></ol>`);
+  $('#results-container').prepend(`<h2 id="results-title">${stateName}'s ${parseInt($('#year option:selected').val(), 10)} Dirty Dozen</h2>`);
+  $('#results-list').append(`<ol id="results"></ol>`);
 }
 
 function appendText(obj, count) {
   let liID = `facility-${count}`;
-  let li = `<li id="${liID}">${count}. ${obj.FACILITY_NAME}</li>`;               // Create element with HTML  
+  let li = `<li id="${liID}">${count}. ${obj.FACILITY_NAME}</li>`; 
   let co2 = `<p>CO2e emitted: ${obj.CO2E_EMISSION.toLocaleString()} metric tons</p>`
   let more = `<a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${obj.FACILITY_ID}&pSp=1&pReportingYear=${parseInt($('#year option:selected').val(), 10)}" target="_blank">more information</a>`
   $("#results").append(li);
@@ -61,6 +61,17 @@ function appendText(obj, count) {
 function resultsListeners(id) {
   let currentEl = $(`#${id}`);
   $(currentEl).on('click', (e) => {
-    console.log(currentEl);
+    moreInfo(currentEl);
   })
 }
+
+function moreInfo(el) {
+  // create div element and add to page
+  $('#results-container').append(`<div id="more-info">`);
+  // add heading
+  $('#results-container').append(`<h3 id="more-info-title">more information</h3>`)
+}
+
+
+
+
