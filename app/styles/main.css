@@ -89,6 +89,10 @@ body {
   margin-right: auto;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 #results {
   max-height: 500px;
   padding: 0;
