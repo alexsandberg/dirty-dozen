@@ -1,5 +1,5 @@
 // generated on 2019-08-20 using generator-webapp 4.0.0-6
-const { src, dest, watch, series, parallel, lastRun } = require('gulp');
+const { src, dest, watch, series, parallel, lastRun, task } = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync');
 const del = require('del');
@@ -15,6 +15,10 @@ const port = argv.port || 9000;
 const isProd = process.env.NODE_ENV === 'production';
 const isTest = process.env.NODE_ENV === 'test';
 const isDev = !isProd && !isTest;
+
+const ghPages = require('gulp-gh-pages');
+
+task('deploy', () => src('./dist/**/*').pipe(ghPages()));
 
 function styles() {
   return src('app/styles/*.css')
