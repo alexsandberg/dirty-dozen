@@ -9,19 +9,14 @@ const entry = {
 
 // submit button event listener
 $('#location-btn').on('click', () => {
-    runData(
-        getInput,
-        fetchResults,
-        createHead,
-        appendText
-    )(entry)
+
+    let input = getInput(entry);
+
+    fetchResults(input)
+        .then(json => appendText(createHead(json)))
+
 });
 
-// pipe function
-const pipe = (f, g) => (...args) => g(f(...args))
-
-// process the input data
-const runData = (...fns) => fns.reduce(pipe);
 
 // get user input
 function getInput(entry) {
@@ -31,35 +26,29 @@ function getInput(entry) {
     return Object.assign({}, entry, { state: state, stateName: stateName, year: year })
 }
 
-function fetchResults(data) {
+const fetchResults = async (data) => {
 
     // fetch data from server
-    fetch(`${window.location.origin}/form`, {
+    let response = await fetch(`${window.location.origin}/form`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
     })
-        .then((response) => {
-            return response.json();
-        })
-        .then((myJson) => {
-            if (myJson['success'] == true) {
-                console.log('success')
-            }
-        });
+
+    let json = await response.json()
+    return json;
 }
 
 // create results header
 function createHead(entry) {
-    // let stateName = $('#state option:selected').text();
 
     // clear results if present
     $('#results-container').empty();
 
     // add header
-    $('#results-container').append(`<h2 id="results-title">${entry.stateName}'s ${parseInt($('#year option:selected').val(), 10)} Dirty Dozen</h2>`);
+    $('#results-container').append(`<h2 id="results-title">${entry.data.state_name}'s ${entry.data.year} Dirty Dozen</h2>`);
     $('#results-container').append(`<div id="results-list"></div>`)
     $('#results-list').append(`<ol id="results"></ol>`);
     return entry
@@ -70,7 +59,7 @@ function appendText(entry) {
     let count = 1;
 
     // add new results elements 
-    entry.dirtyDoz.forEach(function (obj) {
+    entry.data.entries.forEach(function (obj) {
         let liID = `facility-${count}`;
         let li = `<li id="${liID}">${count}. Facility: <span class="bold">${obj.FACILITY_NAME}</span></li>`;
         let co2 = `<p>CO2e emitted: ${obj.CO2E_EMISSION.toLocaleString()} metric tons</p>`
