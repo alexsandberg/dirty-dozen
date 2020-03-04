@@ -2,7 +2,7 @@
 {% block content %}
 <div class="jumbotron">
     <h3 class="text-muted">where do you live?</h1>
-        <span>select state</span><select id="state">
+        <span>select state</span><select id="state" name="state" form="state-year-form">
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>
@@ -55,7 +55,7 @@
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
         </select>
-        <span>select year</span><select id="year">
+        <span>select year</span><select id="year" name="year" form="state-year-form">
             <option value="2017">2018</option>
             <option value="2017">2017</option>
             <option value="2016">2016</option>
@@ -66,7 +66,11 @@
             <option value="2011">2011</option>
             <option value="2010">2010</option>
         </select>
-        <button id="location-btn" class="btn btn-lg btn-success">go</button>
+
+        <form action="/form" id="state-year-form">
+            <input id="location-btn" class="btn btn-lg btn-success" value="go">
+        </form>
+
 </div>
 
 <div id="results-container">

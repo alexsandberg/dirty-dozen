@@ -3,31 +3,15 @@
 const entry = {
     state: "state",
     stateName: "state name",
-    year: "year",
-    subResults: [],
-    sorted: [],
-    dirtyDoz: []
+    year: "year"
 }
 
-// store data
-const data = getData();
 
-// get the data
-function getData() {
-    let results = $.getJSON("data/csvjson.json", (json) => {
-        let arr = json.map(a => ({ ...a }));
-        return arr
-    })
-    return results
-}
-
-// button event listener
+// submit button event listener
 $('#location-btn').on('click', () => {
     runData(
         getInput,
-        subResults,
-        sortResults,
-        getTop12,
+        fetchResults,
         createHead,
         appendText
     )(entry)
@@ -47,31 +31,24 @@ function getInput(entry) {
     return Object.assign({}, entry, { state: state, stateName: stateName, year: year })
 }
 
-// get results for specified state and year
-function subResults(entry) {
-    let subResults = [];
-    data.responseJSON.forEach(obj => {
-        if (obj.YEAR === entry.year && obj.STATE === entry.state) {
-            subResults.push(obj);
-        }
+function fetchResults(data) {
+
+    // fetch data from server
+    fetch(`${window.location.origin}/form`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
     })
-    return Object.assign({}, entry, { subResults: subResults })
-}
-
-// sort the results
-function sortResults(entry) {
-    let sorted = [];
-    sorted = entry.subResults.sort((a, b) => {
-        return b.CO2E_EMISSION - a.CO2E_EMISSION;
-    });
-    return Object.assign({}, entry, { sorted: sorted })
-}
-
-// get the top 12 from sorted results
-function getTop12(entry) {
-    let dirtyDoz = [];
-    dirtyDoz = entry.sorted.slice(0, 12);
-    return Object.assign({}, entry, { dirtyDoz: dirtyDoz })
+        .then((response) => {
+            return response.json();
+        })
+        .then((myJson) => {
+            if (myJson['success'] == true) {
+                console.log('success')
+            }
+        });
 }
 
 // create results header
