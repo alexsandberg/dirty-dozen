@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link type="text/css" rel="stylesheet" href="/../../static/css/main.css" />
+    <title>{% block title %}Dirty Dozen - Pollution Tracker{% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        <!-- Nav Bar -->
+        <div class="header">
+            <ul class="nav nav-pills float-right">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">Home</a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">About</a>
+                </li>
+            </ul>
+            <h3 class="text-muted">Dirty Dozen</h3>
+            <h4 class="text-muted">Pollution Tracker</h4>
+        </div>
+    </header>
+
+    <!-- Begin page content -->
+    <main id="content" role="main" class="container">
+
+        {% block body %}{% endblock %}
+        {% block content %}{% endblock %}
+
+    </main>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script src="/../../static/js/main.js"></script>
+</body>
+
+</html>
