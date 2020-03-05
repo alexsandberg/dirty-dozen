@@ -64,4 +64,8 @@ def create_app():
 
         return render_template('pages/results.html', data=data), 200
 
+    @app.route('/about')
+    def about():
+        return render_template('pages/about.html')
+
     return app
