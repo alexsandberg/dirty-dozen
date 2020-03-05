@@ -15,6 +15,15 @@ def create_app():
     def sort_entries(facilities):
         return sorted(facilities, key=lambda facilities: facilities['CO2E_EMISSION'], reverse=True)
 
+    def parent_company_info(id):
+
+        # call API to get parent company info using facility id
+        resp = requests.get(
+            f'https://data.epa.gov/efservice/V_PARENT_COMPANY_INFO/FACILITY_ID/{id}/json')
+
+        # return json response
+        return resp.json()
+
     @app.route('/')
     def home():
         return render_template('pages/home.html')
