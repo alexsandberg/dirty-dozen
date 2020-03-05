@@ -62,10 +62,12 @@ function appendText(entry) {
     entry.data.entries.forEach(function (obj) {
         let liID = `facility-${count}`;
         let li = `<li id="${liID}">${count}. Facility: <span class="bold">${obj.FACILITY_NAME}</span></li>`;
-        let co2 = `<p>CO2e emitted: ${obj.CO2E_EMISSION.toLocaleString()} metric tons</p>`
+        let co2 = `<p><br/><span class="bold">${obj.CO2E_EMISSION.toLocaleString()}</span> metric tons CO2e (carbon dioxide equivalent) emitted</p>`;
+        let sectorType = `<p>Sector Type: ${obj.SECTOR_NAME}<br/>Sector Description: ${obj.SUBSECTOR_DESC}</p>`;
+        let gas = `<p>Gas: ${obj.GAS_NAME} (${obj.GAS_CODE})</p>`;
         let more = `<a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${obj.FACILITY_ID}&pSp=1&pReportingYear=${parseInt($('#year option:selected').val(), 10)}" target="_blank">more information</a>`
         $("#results").append(li);
-        $(`#facility-${count}`).append(co2, more);
+        $(`#facility-${count}`).append(co2, sectorType, gas, more);
         count++;
     })
 }

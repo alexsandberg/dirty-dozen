@@ -60,6 +60,8 @@ def create_app():
             'entries': sort_entries(facilities)[0:12]
         }
 
+        print('DATA: ', data)
+
         return jsonify({
             'success': True,
             'data': data
