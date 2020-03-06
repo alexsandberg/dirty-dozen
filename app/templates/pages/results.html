@@ -6,6 +6,7 @@
 <div id="results-container">
     {% if data %}
     <h2 id="results-title">{{ data['state_name'] }}'s {{ data['year'] }} Dirty Dozen</h2>
+    <div id="resultsDataDiv" data-state-geo="{{ data['state_geo'] }}"></div>
     <div id="results-list">
         <ol id="results">
             {% for entry in data['entries'] %}
@@ -21,6 +22,16 @@
         </ol>
     </div>
     {% endif %}
+
 </div>
+
+<div style="height:100%; width: 100%;">
+    <div id="map"></div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAV5T94RkiGedmPWwTcx2PCu_AbFzx-YBA&callback=initMap" async
+    defer></script>
+<script src="/../../static/js/script.js"></script>
+
 
 {% endblock %}

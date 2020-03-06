@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from dotenv import find_dotenv, load_dotenv
 import requests
+from .states import state_center
 
 
 def create_app():
@@ -58,6 +59,7 @@ def create_app():
         data = {
             'state': state_code,
             'state_name': state_name,
+            'state_geo': state_center[state_code],
             'year': year,
             'entries': format_co2_str(sort_entries(facilities)[0:12])
         }
