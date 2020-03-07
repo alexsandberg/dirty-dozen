@@ -7,10 +7,10 @@
 <h2 id="results-title">{{ data['state_name'] }}'s {{ data['year'] }} Dirty Dozen</h2>
 <div id="results-container">
     <div id="results-list">
-        <div id="resultsDataDiv" data-state-geo="{{ data['state_geo'] }}"></div>
+
         <ol id="results">
             {% for entry in data['entries'] %}
-            <div class="facilityDataDiv" data-geo="{{ entry['LATITUDE'] }}, {{ entry['LONGITUDE'] }}"></div>
+
             <li>{{ loop.index }}. Facility: <span class="bold">{{ entry['FACILITY_NAME'] }}</span>
                 <p><br /><span class="bold">{{ entry['CO2E_EMISSION'] }}</span> metric tons CO2e (carbon
                     dioxide equivalent) emitted</p>
@@ -24,17 +24,15 @@
     </div>
     {% endif %}
 
-    <!-- <div style="height:100%; width: 100%;">
-        
-    </div> -->
     <div id="map"></div>
 
 </div>
 
-
-
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAV5T94RkiGedmPWwTcx2PCu_AbFzx-YBA&callback=initMap" async
     defer></script>
+<script>
+    let data = '{{ data|tojson }}';
+</script>
 <script src="/../../static/js/script.js"></script>
 
 

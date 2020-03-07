@@ -1,28 +1,36 @@
 
-// get state geo center data 
-let stateGeo = resultsDataDiv.getAttribute("data-state-geo");
-let stateLatLng = stateGeo.replace(/[(),]/g, "").split(" ");
-
-let facilityDataset = Array.from(document.getElementsByClassName("facilityDataDiv"));
-let facilityGeos = facilityDataset.map((facility) => facility.dataset.geo.split(","));
-facilityGeos.forEach(arr => arr.forEach(i => i.trim()));
-
+// parse json data from response
+let parsedData = JSON.parse(data);
 
 // google maps init
 var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: parseFloat(stateLatLng[0]), lng: parseFloat(stateLatLng[1]) },
+        center: { lat: parsedData.state_geo[0], lng: parsedData.state_geo[1] },
         zoom: 6
     });
 
-    for (let i = 0; i < facilityGeos.length; i++) {
+    parsedData.entries.forEach(entry => {
+
+        let contentString = `<a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${entry.FACILITY_ID}&pSp=1&pReportingYear=${parsedData.year}"
+        target="_blank">${entry.FACILITY_NAME}</a>` +
+            `<p><br /><span class="bold">${entry.CO2E_EMISSION}</span> metric tons CO2e (carbon
+                dioxide equivalent) emitted</p>`
+
+        let infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
         let marker = new google.maps.Marker({
-            position: { lat: parseFloat(facilityGeos[i][0]), lng: parseFloat(facilityGeos[i][1]) },
+            position: { lat: entry.LATITUDE, lng: entry.LONGITUDE },
             map: map,
             title: 'Hello World!'
         });
-    }
+
+        marker.addListener('click', function () {
+            infowindow.open(map, marker);
+        });
+    })
 
 }
 
