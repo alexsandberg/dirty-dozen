@@ -95,7 +95,8 @@ html, body {
 }
 
 #state,
-#year {
+#year,
+#gas {
   width: 200px;
   margin-right: auto;
   margin-left: auto;

@@ -1,6 +1,9 @@
 
+// remove any invalid backslashes from json
+let dataStr = data.replace(/\\/g, "");
+
 // parse json data from response
-let parsedData = JSON.parse(data);
+let parsedData = JSON.parse(dataStr);
 
 // google maps init
 var map;

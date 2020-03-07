@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, abort
 from dotenv import find_dotenv, load_dotenv
 import requests
 from .states import state_center
@@ -40,19 +40,30 @@ def create_app():
         # store data
         state = request.args.get('state')
         state_code, state_name = state.split('_')
+        gas_code = request.args.get('gas')
         year = request.args.get('year')
 
         # get facilities by state and year
         # query starts with high CO2E limit and goes lower if necessary to get top 12
         limit = 500000
         while True:
-            resp = requests.get(
-                f'https://enviro.epa.gov/enviro/efservice/V_GHG_EMITTER_SECTOR/state/{state_code}/CO2E_EMISSION/>/{limit}/year/=/{year}/json')
 
-            facilities = resp.json()
+            if gas_code == 'all':
+                resp = requests.get(
+                    f'https://enviro.epa.gov/enviro/efservice/V_GHG_EMITTER_SECTOR/state/{state_code}/CO2E_EMISSION/>/{limit}/year/=/{year}/json')
+
+                facilities = resp.json()
+
+            else:
+                resp = requests.get(
+                    f'https://enviro.epa.gov/enviro/efservice/V_GHG_EMITTER_SECTOR/state/{state_code}/CO2E_EMISSION/>/{limit}/year/=/{year}/GAS_CODE/=/{gas_code}/json')
+
+                facilities = resp.json()
 
             if len(facilities) < 12:
                 limit /= 10
+                if limit < 0.0005:
+                    abort(404)
             else:
                 break
 
@@ -63,6 +74,9 @@ def create_app():
             'year': year,
             'entries': format_co2_str(sort_entries(facilities)[0:12])
         }
+
+        for entry in data['entries']:
+            print(entry['LATITUDE'], entry['LONGITUDE'])
 
         return render_template('pages/results.html', data=data), 200
 

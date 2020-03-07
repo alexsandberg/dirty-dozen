@@ -6,7 +6,7 @@
         data-year="{{ data['year'] }}"></div>
     {% endif %}
     <h3 class="text-muted">find the top polluters in each state</h1>
-        <span>select state</span><select id="state" name="state" form="state-year-form" onsubmit="this.form.submit();">
+        <span>select state</span><select id="state" name="state" form="user-form" onsubmit="this.form.submit();">
             <option value="AL_Alabama">Alabama</option>
             <option value="AK_Alaska">Alaska</option>
             <option value="AZ_Arizona">Arizona</option>
@@ -59,7 +59,7 @@
             <option value="WI_Wisconsin">Wisconsin</option>
             <option value="WY_Wyoming">Wyoming</option>
         </select>
-        <span>select year</span><select id="year" name="year" form="state-year-form" onsubmit="this.form.submit();">
+        <span>select year</span><select id="year" name="year" form="user-form" onsubmit="this.form.submit();">
             <option value="2018">2018</option>
             <option value="2017">2017</option>
             <option value="2016">2016</option>
@@ -70,8 +70,17 @@
             <option value="2011">2011</option>
             <option value="2010">2010</option>
         </select>
+        <span>select gas</span><select id="gas" name="gas" form="user-form" onsubmit="this.form.submit();">
+            <option value="all">all gases</option>
+            <option value="CO2">Carbon Dioxide (CO2)</option>
+            <option value="CH4">Methane (CH4)</option>
+            <option value="N2O">Nitrous Oxide (N2O)</option>
+            <option value="PFC">Perfluorocarbons (PFCs)</option>
+            <option value="HFC">Hydrofluorocarbons (HFCs)</option>
+            <option value="SF6">Sulfur Hexafluoride (SF6)</option>
+        </select>
 
-        <form action="/form" id="state-year-form">
+        <form action="/form" id="user-form">
             <button type="submit" class="btn btn-primary">go</button>
             <!-- <input type="submit" id="location-btn" class="btn btn-primary" value="go"> -->
         </form>
