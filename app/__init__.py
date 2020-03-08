@@ -62,8 +62,8 @@ def create_app():
 
             if len(facilities) < 12:
                 limit /= 10
-                if limit < 0.0005:
-                    abort(404)
+                # if limit < 0.0005:
+                #     abort(404)
             else:
                 break
 
