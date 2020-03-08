@@ -1,10 +1,6 @@
 {% extends 'layouts/main.html' %}
 {% block content %}
 <div class="jumbotron">
-    {% if data %}
-    <div id="dataDiv" data-state-name="{{ data['state_name'] }}" data-state-code="{{ data['state'] }}"
-        data-year="{{ data['year'] }}"></div>
-    {% endif %}
     <h3 class="text-muted">find the top polluters in each state</h1>
         <span>select state</span><select id="state" name="state" form="user-form" onsubmit="this.form.submit();">
             <option value="AL_Alabama">Alabama</option>
@@ -86,25 +82,5 @@
         </form>
 
 </div>
-
-<script>
-
-    if (document.getElementById('dataDiv')) {
-        let stateName = dataDiv.getAttribute("data-state-name");
-        let stateCode = dataDiv.getAttribute("data-state-code");
-        let state = stateCode + "_" + stateName;
-        let year = dataDiv.getAttribute("data-year");
-
-        let stateMenu = document.getElementById("state");
-        let yearMenu = document.getElementById("year");
-
-        if ((state != null) && (year != null)) {
-            stateMenu.value = state;
-            yearMenu.value = year
-        }
-    }
-
-
-</script>
 
 {% endblock %}

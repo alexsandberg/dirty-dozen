@@ -72,6 +72,7 @@ def create_app():
             'state_name': state_name,
             'state_geo': state_center[state_code],
             'year': year,
+            'gas': gas_code,
             'entries': format_co2_str(sort_entries(facilities)[0:12])
         }
 

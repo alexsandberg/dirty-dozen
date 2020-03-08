@@ -37,5 +37,14 @@ function initMap() {
 
 }
 
+// set default menu values to previous search
+let stateName = parsedData['state_name'];
+let stateCode = parsedData['state'];
+let state = stateCode + "_" + stateName;
+let year = parsedData['year'];
+let gas = parsedData['gas'];
 
+document.getElementById("state").value = state;
+document.getElementById("year").value = year;
+document.getElementById("gas").value = gas;
 
