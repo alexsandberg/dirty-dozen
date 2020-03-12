@@ -12,6 +12,8 @@ if (parsedData.state_name == 'United States') {
     zoom = 6
 }
 
+let year = parsedData['year'];
+
 // google maps init
 var map;
 function initMap() {
@@ -24,7 +26,7 @@ function initMap() {
 
     parsedData.entries.forEach(entry => {
 
-        let contentString = `<a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${entry.FACILITY_ID}&pSp=1&pReportingYear=${parsedData.year}"
+        let contentString = `<a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${entry.FACILITY_ID}&pSp=1&pReportingYear=${entry.YEAR}"
         target="_blank">${entry.FACILITY_NAME}</a>` +
             `<p><br /><span class="bold">${entry.CO2E_EMISSION}</span> metric tons CO2e (carbon
                 dioxide equivalent) emitted</p>`
@@ -76,7 +78,6 @@ if (stateCode == 'all') {
     state = stateCode + "_" + stateName;
 }
 
-let year = parsedData['year'];
 let gas = parsedData['gas'];
 
 document.getElementById("state").value = state;
