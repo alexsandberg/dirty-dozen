@@ -5,6 +5,18 @@ let dataStr = data.replace(/\\/g, "");
 // parse json data from response
 let parsedData = JSON.parse(dataStr);
 
+// group entries by facility id
+let facilities = {}
+parsedData.entries.forEach(entry => {
+    if (facilities.hasOwnProperty(entry.FACILITY_ID)) {
+        facilities[entry.FACILITY_ID].push(entry)
+    } else {
+        facilities[entry.FACILITY_ID] = [entry]
+    }
+})
+console.log(facilities)
+
+// zoom out more to view full US
 let zoom;
 if (parsedData.state_name == 'United States') {
     zoom = 4
@@ -24,19 +36,27 @@ function initMap() {
 
     let markers = []
 
-    parsedData.entries.forEach(entry => {
+    // iterate through each entry per facility and add marker with infowindow
+    Object.keys(facilities).forEach(arr => {
 
-        let contentString = `<a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${entry.FACILITY_ID}&pSp=1&pReportingYear=${entry.YEAR}"
-        target="_blank">${entry.FACILITY_NAME}</a>` +
-            `<p><br /><span class="bold">${entry.CO2E_EMISSION}</span> metric tons CO2e (carbon
-                dioxide equivalent) emitted</p>`
+        let facilityID = arr
+        let facilityName = facilities[arr][0].FACILITY_NAME
+
+        let contentString = `<p><span class="bold">${facilityName}</span></p>`
+
+        // add CO2e data to infowindow for each year per given facility
+        facilities[arr].forEach(entry => {
+            console.log('ENTRY: ', entry)
+            contentString += `<p><span class="bold">${entry.CO2E_EMISSION}</span> metric tons CO2e emitted in ${entry.YEAR} <a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${facilityID}&pSp=1&pReportingYear=${entry.YEAR}"
+                target="_blank">(more info)</a><br /></p>`
+        })
 
         let infowindow = new google.maps.InfoWindow({
             content: contentString
         });
 
         let marker = new google.maps.Marker({
-            position: { lat: entry.LATITUDE, lng: entry.LONGITUDE },
+            position: { lat: facilities[arr][0].LATITUDE, lng: facilities[arr][0].LONGITUDE },
             map: map,
             title: 'Hello World!'
         });
