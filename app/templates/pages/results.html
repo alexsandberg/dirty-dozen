@@ -4,7 +4,16 @@
 {% block content %}
 {{ super() }}
 {% if data %}
+{% if (data['state_name'] == 'United States') and (data['year'] != 'all') %}
+<h2 id="results-title">{{ data['state_name'] }} {{ data['year'] }} Dirty Dozen</h2>
+{% elif (data['state_name'] == 'United States') and (data['year'] == 'all') %}
+<h2 id="results-title">{{ data['state_name'] }} 2010-2018 Dirty Dozen</h2>
+{% elif (data['state_name'] != 'United States') and (data['year'] == 'all') %}
+<h2 id="results-title">{{ data['state_name'] }}'s 2010-2018 Dirty Dozen</h2>
+{% elif (data['state_name'] != 'United States') and (data['year'] != 'all') %}
 <h2 id="results-title">{{ data['state_name'] }}'s {{ data['year'] }} Dirty Dozen</h2>
+{% endif %}
+
 <div id="results-container">
     <div id="results-list">
 

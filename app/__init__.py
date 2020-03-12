@@ -83,7 +83,7 @@ def create_app():
             print('COUNT: ', count)
 
             if count < 12:
-                limit /= 10
+                limit /= 5
             else:
                 resp = requests.get(f'{url}/CO2E_EMISSION/>/{limit}/json')
                 facilities = resp.json()
