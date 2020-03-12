@@ -68,7 +68,14 @@ function initMap() {
 // set default menu values to previous search
 let stateName = parsedData['state_name'];
 let stateCode = parsedData['state'];
-let state = stateCode + "_" + stateName;
+
+let state;
+if (stateCode == 'all') {
+    state = stateCode
+} else {
+    state = stateCode + "_" + stateName;
+}
+
 let year = parsedData['year'];
 let gas = parsedData['gas'];
 
