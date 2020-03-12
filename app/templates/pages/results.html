@@ -23,9 +23,13 @@
             <li>{{ loop.index }}. Facility: <span class="bold">{{ entry['FACILITY_NAME'] }}</span>
                 <p><br /><span class="bold">{{ entry['CO2E_EMISSION'] }}</span> metric tons CO2e (carbon
                     dioxide equivalent) emitted</p>
+
+                {% if data['year'] == 'all' %}
+                <p>Year: {{ entry['YEAR'] }}</p>
+                {% endif %}
                 <p>Sector Type: {{ entry['SECTOR_NAME'] }}<br />Sector Description: {{ entry['SUBSECTOR_DESC'] }}</p>
                 <p>Gas: {{ entry['GAS_NAME'] }} ({{ entry['GAS_CODE'] }})</p>
-                <a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId={{ entry['FACILITY_ID'] }}&pSp=1&pReportingYear={{ data['year'] }}"
+                <a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId={{ entry['FACILITY_ID'] }}&pSp=1&pReportingYear={{ entry['YEAR'] }}"
                     target="_blank">more information</a>
             </li>
             {% endfor %}
