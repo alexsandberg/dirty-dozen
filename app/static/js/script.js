@@ -5,12 +5,19 @@ let dataStr = data.replace(/\\/g, "");
 // parse json data from response
 let parsedData = JSON.parse(dataStr);
 
+let zoom;
+if (parsedData.state_name == 'United States') {
+    zoom = 4
+} else {
+    zoom = 6
+}
+
 // google maps init
 var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: parsedData.state_geo[0], lng: parsedData.state_geo[1] },
-        zoom: 6
+        zoom: zoom
     });
 
     let markers = []
