@@ -76,8 +76,7 @@ def create_app():
             'entries': format_co2_str(sort_entries(facilities)[0:12])
         }
 
-        for entry in data['entries']:
-            print(entry['LATITUDE'], entry['LONGITUDE'])
+        print(data)
 
         return render_template('pages/results.html', data=data), 200
 

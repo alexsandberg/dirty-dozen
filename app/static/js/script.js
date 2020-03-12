@@ -13,6 +13,8 @@ function initMap() {
         zoom: 6
     });
 
+    let markers = []
+
     parsedData.entries.forEach(entry => {
 
         let contentString = `<a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${entry.FACILITY_ID}&pSp=1&pReportingYear=${parsedData.year}"
@@ -30,12 +32,31 @@ function initMap() {
             title: 'Hello World!'
         });
 
+        markers.push([marker, infowindow])
+    })
+
+    // add marker event listeners for opening infowindows
+    markers.forEach((markerInfo) => {
+        let marker = markerInfo[0]
+        let infowindow = markerInfo[1]
         marker.addListener('click', function () {
+            // open the infowindow for marker
             infowindow.open(map, marker);
+
+            // close any other infowindows
+            markers.forEach((markerInfo2) => {
+                let marker2 = markerInfo2[0]
+                let infowindow2 = markerInfo2[1]
+
+                if (marker != marker2) {
+                    infowindow2.close(map, marker2)
+                }
+            })
         });
     })
 
 }
+
 
 // set default menu values to previous search
 let stateName = parsedData['state_name'];
