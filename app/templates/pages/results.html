@@ -20,7 +20,8 @@
         <ol id="results">
             {% for entry in data['entries'] %}
 
-            <li>{{ loop.index }}. Facility: <span class="bold">{{ entry['FACILITY_NAME'] }}</span>
+            <li onclick={resultsClickHandler({{ entry['FACILITY_ID'] }})}>{{ loop.index }}. Facility: <span
+                    class="bold">{{ entry['FACILITY_NAME'] }}</span>
                 <p><br /><span class="bold">{{ entry['CO2E_EMISSION'] }}</span> metric tons CO2e (carbon
                     dioxide equivalent) emitted</p>
 

@@ -25,6 +25,8 @@ if (parsedData.state_name == 'United States') {
 
 let year = parsedData['year'];
 
+let markers = []
+
 // google maps init
 var map;
 function initMap() {
@@ -32,8 +34,6 @@ function initMap() {
         center: { lat: parsedData.state_geo[0], lng: parsedData.state_geo[1] },
         zoom: zoom
     });
-
-    let markers = []
 
     // iterate through each entry per facility and add marker with infowindow
     Object.keys(facilities).forEach(arr => {
@@ -50,13 +50,13 @@ function initMap() {
         })
 
         let infowindow = new google.maps.InfoWindow({
-            content: contentString
+            content: contentString,
+            id: facilityID
         });
 
         let marker = new google.maps.Marker({
             position: { lat: facilities[arr][0].LATITUDE, lng: facilities[arr][0].LONGITUDE },
-            map: map,
-            title: 'Hello World!'
+            map: map
         });
 
         markers.push([marker, infowindow])
@@ -102,3 +102,27 @@ document.getElementById("state").value = state;
 document.getElementById("year").value = year;
 document.getElementById("gas").value = gas;
 
+// click handler for each result li
+const resultsClickHandler = (id) => {
+    let currentMarker;
+    // open infowindow for marker matching id
+    markers.forEach((entry) => {
+        let marker = entry[0];
+        let infowindow = entry[1];
+
+        if (infowindow.id == parseInt(id)) {
+            currentMarker = marker;
+            infowindow.open(map, marker);
+        }
+    })
+
+    // close any other infowindows
+    markers.forEach((markerInfo2) => {
+        let marker2 = markerInfo2[0]
+        let infowindow2 = markerInfo2[1]
+
+        if (currentMarker != marker2) {
+            infowindow2.close(map, marker2)
+        }
+    })
+}
