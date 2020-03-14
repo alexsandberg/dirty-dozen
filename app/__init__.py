@@ -27,8 +27,14 @@ def create_app():
         resp = requests.get(
             f'https://data.epa.gov/efservice/V_PARENT_COMPANY_INFO/FACILITY_ID/{id}/year/{year}/json')
 
+        results = resp.json()
+
+        # sort parent results by % ownership
+        results.sort(
+            key=lambda obj: obj['PARENT_CO_PERCENT_OWN'], reverse=True)
+
         # return json response
-        return resp.json()
+        return results
 
     def build_epa_api_request(state_code, year, gas_code):
         url = 'https://enviro.epa.gov/enviro/efservice/V_GHG_EMITTER_SECTOR'
