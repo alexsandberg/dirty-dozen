@@ -14,13 +14,12 @@ body {
 #content, .container {
     height: 100%;
     width: 100%;
+    margin-top: 100px;
 }
 
 #map {
     height: 100%;
     width: 100%;
-    max-width: 700px;
-    max-height: 700px;
     padding-right: 10px;
     padding-left: 10px;
 }
@@ -64,34 +63,55 @@ html, body {
   border-top: .05rem solid #e5e5e5;
 }
 
-/* Customize container */
-@media (min-width: 48em) {
-  .container {
-    /* max-width: 46rem; */
-    /* width: 100%;
-    padding-left: 5%;
-    padding-right: 5%; */
-    margin-top: 100px;
-  }
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    #results-container {
+        /* flex-direction: column; */
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 20px;
+    }
+
+    #map {
+        order: 1;
+        max-width: 400px;
+        max-height: 400px;
+    }
+
+    #results-list {
+        order: 2;
+    }
 }
-.container-narrow > hr {
-  margin: 2rem 0;
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    #results-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #map {
+        max-width: 700px;
+        max-height: 700px;
+    }
 }
 
 
-.jumbotron {
+/* #user-form {
   text-align: center;
-  border-bottom: .05rem solid #e5e5e5;
   display: flex;
   flex-direction: column;
-}
-.jumbotron .btn {
+} */
+/* .jumbotron .btn {
   margin-top: 30px;
-  /*padding: .75rem 1.5rem;*/
   font-size: 1.5rem;
   width: 10%;
   margin-left: auto;
   margin-right: auto;
+} */
+
+#user-form {
+    padding-top: 10px;
 }
 
 #state,
@@ -104,10 +124,7 @@ html, body {
 
 #results-container {
   display: flex;
-  flex-direction: row;
-  /* flex-wrap: wrap; */
   align-items: center;
-  justify-content: space-between;
   height: 100%;
   width: 100%;
 }
@@ -135,13 +152,6 @@ html, body {
   overflow-y: auto;
 }
 
-#more-info {
-  /*width: 50%;*/
-}
-
-/*.hide {
-  display: none;
-}*/
 
 #results li {
   background-color: #fff;
@@ -156,38 +166,4 @@ html, body {
 
 #results li:hover {
   background-color: #00000020;
-}
-
-/*#map {
-  width: 50vw;
-  height: 50vh;
-  margin-right: auto;
-  margin-left: auto;
-}*/
-
-/* Supporting marketing content */
-.marketing {
-  margin: 3rem 0;
-}
-.marketing p + h4 {
-  margin-top: 1.5rem;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 48em) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 2rem;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
 }

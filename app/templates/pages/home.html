@@ -1,88 +1,103 @@
 {% extends 'layouts/main.html' %}
 {% block content %}
-<div class="jumbotron">
-    <h3 class="text-muted">find the top polluters in each state</h1>
-        <span>select state</span><select id="state" name="state" form="user-form" onsubmit="this.form.submit();">
-            <option value="all">all states</option>
-            <option value="AL_Alabama">Alabama</option>
-            <option value="AK_Alaska">Alaska</option>
-            <option value="AZ_Arizona">Arizona</option>
-            <option value="AR_Arkansas">Arkansas</option>
-            <option value="CA_California">California</option>
-            <option value="CO_Colorado">Colorado</option>
-            <option value="CT_Connecticut">Connecticut</option>
-            <option value="DE_Delaware">Delaware</option>
-            <option value="DC_District Of Columbia">District Of Columbia</option>
-            <option value="FL_Florida">Florida</option>
-            <option value="GA_Georgia">Georgia</option>
-            <option value="HI_Hawaii">Hawaii</option>
-            <option value="ID_Idaho">Idaho</option>
-            <option value="IL_Illinois">Illinois</option>
-            <option value="IN_Indiana">Indiana</option>
-            <option value="IA_Iowa">Iowa</option>
-            <option value="KS_Kansas">Kansas</option>
-            <option value="KY_Kentucky">Kentucky</option>
-            <option value="LA_Louisiana">Louisiana</option>
-            <option value="ME_Maine">Maine</option>
-            <option value="MD_Maryland">Maryland</option>
-            <option value="MA_Massachusetts">Massachusetts</option>
-            <option value="MI_Michigan">Michigan</option>
-            <option value="MN_Minnesota">Minnesota</option>
-            <option value="MS_Mississippi">Mississippi</option>
-            <option value="MO_Missouri">Missouri</option>
-            <option value="MT_Montana">Montana</option>
-            <option value="NE_Nebraska">Nebraska</option>
-            <option value="NV_Nevada">Nevada</option>
-            <option value="NH_New Hampshire">New Hampshire</option>
-            <option value="NJ_New Jersey">New Jersey</option>
-            <option value="NM_New Mexico">New Mexico</option>
-            <option value="NY_New York">New York</option>
-            <option value="NC_North Carolina">North Carolina</option>
-            <option value="ND_North Dakota">North Dakota</option>
-            <option value="OH_Ohio">Ohio</option>
-            <option value="OK_Oklahoma">Oklahoma</option>
-            <option value="OR_Oregon">Oregon</option>
-            <option value="PA_Pennsylvania">Pennsylvania</option>
-            <option value="RI_Rhode Island">Rhode Island</option>
-            <option value="SC_South Carolina">South Carolina</option>
-            <option value="SD_South Dakota">South Dakota</option>
-            <option value="TN_Tennessee">Tennessee</option>
-            <option value="TX_Texas">Texas</option>
-            <option value="UT_Utah">Utah</option>
-            <option value="VT_Vermont">Vermont</option>
-            <option value="VA_Virginia">Virginia</option>
-            <option value="WA_Washington">Washington</option>
-            <option value="WV_West Virginia">West Virginia</option>
-            <option value="WI_Wisconsin">Wisconsin</option>
-            <option value="WY_Wyoming">Wyoming</option>
-        </select>
-        <span>select year</span><select id="year" name="year" form="user-form" onsubmit="this.form.submit();">
-            <option value="all">all years</option>
-            <option value="2018">2018</option>
-            <option value="2017">2017</option>
-            <option value="2016">2016</option>
-            <option value="2015">2015</option>
-            <option value="2014">2014</option>
-            <option value="2013">2013</option>
-            <option value="2012">2012</option>
-            <option value="2011">2011</option>
-            <option value="2010">2010</option>
-        </select>
-        <span>select gas</span><select id="gas" name="gas" form="user-form" onsubmit="this.form.submit();">
-            <option value="all">all gases</option>
-            <option value="CO2">Carbon Dioxide (CO2)</option>
-            <option value="CH4">Methane (CH4)</option>
-            <option value="N2O">Nitrous Oxide (N2O)</option>
-            <!-- <option value="PFC">Perfluorocarbons (PFCs)</option>
-            <option value="HFC">Hydrofluorocarbons (HFCs)</option>
-            <option value="SF6">Sulfur Hexafluoride (SF6)</option> -->
-        </select>
 
-        <form action="/form" id="user-form">
-            <button type="submit" class="btn btn-primary">go</button>
-            <!-- <input type="submit" id="location-btn" class="btn btn-primary" value="go"> -->
-        </form>
+<div class="card bg-light text-center">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h3 class="card-title mt-3 text-center">find the top polluters in each state</h1>
+            <form action="/form">
+                <div class="form-group input-group">
+                    <!-- <label for="state">State</label> -->
+                    <select id="state" class="form-control" name="state" placeholder="select a state" required>
+                        <option value="" disabled selected>select a state</option>
+                        <option value="all">all states</option>
+                        <option value="AL_Alabama">Alabama</option>
+                        <option value="AK_Alaska">Alaska</option>
+                        <option value="AZ_Arizona">Arizona</option>
+                        <option value="AR_Arkansas">Arkansas</option>
+                        <option value="CA_California">California</option>
+                        <option value="CO_Colorado">Colorado</option>
+                        <option value="CT_Connecticut">Connecticut</option>
+                        <option value="DE_Delaware">Delaware</option>
+                        <option value="DC_District Of Columbia">District Of Columbia</option>
+                        <option value="FL_Florida">Florida</option>
+                        <option value="GA_Georgia">Georgia</option>
+                        <option value="HI_Hawaii">Hawaii</option>
+                        <option value="ID_Idaho">Idaho</option>
+                        <option value="IL_Illinois">Illinois</option>
+                        <option value="IN_Indiana">Indiana</option>
+                        <option value="IA_Iowa">Iowa</option>
+                        <option value="KS_Kansas">Kansas</option>
+                        <option value="KY_Kentucky">Kentucky</option>
+                        <option value="LA_Louisiana">Louisiana</option>
+                        <option value="ME_Maine">Maine</option>
+                        <option value="MD_Maryland">Maryland</option>
+                        <option value="MA_Massachusetts">Massachusetts</option>
+                        <option value="MI_Michigan">Michigan</option>
+                        <option value="MN_Minnesota">Minnesota</option>
+                        <option value="MS_Mississippi">Mississippi</option>
+                        <option value="MO_Missouri">Missouri</option>
+                        <option value="MT_Montana">Montana</option>
+                        <option value="NE_Nebraska">Nebraska</option>
+                        <option value="NV_Nevada">Nevada</option>
+                        <option value="NH_New Hampshire">New Hampshire</option>
+                        <option value="NJ_New Jersey">New Jersey</option>
+                        <option value="NM_New Mexico">New Mexico</option>
+                        <option value="NY_New York">New York</option>
+                        <option value="NC_North Carolina">North Carolina</option>
+                        <option value="ND_North Dakota">North Dakota</option>
+                        <option value="OH_Ohio">Ohio</option>
+                        <option value="OK_Oklahoma">Oklahoma</option>
+                        <option value="OR_Oregon">Oregon</option>
+                        <option value="PA_Pennsylvania">Pennsylvania</option>
+                        <option value="RI_Rhode Island">Rhode Island</option>
+                        <option value="SC_South Carolina">South Carolina</option>
+                        <option value="SD_South Dakota">South Dakota</option>
+                        <option value="TN_Tennessee">Tennessee</option>
+                        <option value="TX_Texas">Texas</option>
+                        <option value="UT_Utah">Utah</option>
+                        <option value="VT_Vermont">Vermont</option>
+                        <option value="VA_Virginia">Virginia</option>
+                        <option value="WA_Washington">Washington</option>
+                        <option value="WV_West Virginia">West Virginia</option>
+                        <option value="WI_Wisconsin">Wisconsin</option>
+                        <option value="WY_Wyoming">Wyoming</option>
+                    </select>
+                </div>
+                <div class="form-group input-group">
+                    <!-- <label for="year">Year</label> -->
+                    <select id="year" class="form-control" name="year" required>
+                        <option value="" disabled selected>select a year</option>
+                        <option value="all">all years</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                        <option value="2011">2011</option>
+                        <option value="2010">2010</option>
+                    </select>
+                </div>
+                <div class="form-group input-group">
+                    <!-- <label for="gas">Gas</label> -->
+                    <select id="gas" class="form-control" name="gas" required>
+                        <option value="" disabled selected>select a gas</option>
+                        <option value="all">all gases</option>
+                        <option value="CO2">Carbon Dioxide (CO2)</option>
+                        <option value="CH4">Methane (CH4)</option>
+                        <option value="N2O">Nitrous Oxide (N2O)</option>
+                        <!-- <option value="PFC">Perfluorocarbons (PFCs)</option>
+                        <option value="HFC">Hydrofluorocarbons (HFCs)</option>
+                        <option value="SF6">Sulfur Hexafluoride (SF6)</option> -->
+                    </select>
+                </div>
+                <div class="form-group input-group">
+                    <button type="submit" class="btn btn-primary btn-block">go</button>
+                </div>
 
+            </form>
+    </article>
 </div>
 
 {% endblock %}

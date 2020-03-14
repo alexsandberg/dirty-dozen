@@ -14,7 +14,6 @@ parsedData.entries.forEach(entry => {
         facilities[entry.FACILITY_ID] = [entry]
     }
 })
-console.log(facilities)
 
 // zoom out more to view full US
 let zoom;
@@ -46,7 +45,6 @@ function initMap() {
 
         // add CO2e data to infowindow for each year per given facility
         facilities[arr].forEach(entry => {
-            console.log('ENTRY: ', entry)
             contentString += `<p><span class="bold">${entry.CO2E_EMISSION}</span> metric tons CO2e emitted in ${entry.YEAR} <a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId=${facilityID}&pSp=1&pReportingYear=${entry.YEAR}"
                 target="_blank">(more info)</a><br /></p>`
         })
