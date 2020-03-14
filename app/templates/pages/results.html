@@ -30,8 +30,28 @@
                 {% endif %}
                 <p>Sector Type: {{ entry['SECTOR_NAME'] }}<br />Sector Description: {{ entry['SUBSECTOR_DESC'] }}</p>
                 <p>Gas: {{ entry['GAS_NAME'] }} ({{ entry['GAS_CODE'] }})</p>
+                <!-- <a href="/parent-company/{{ entry['FACILITY_ID'] }}/{{ entry['YEAR'] }}">parent company</a> -->
+
+                <p>
+                    <a class="btn btn-secondary dropdown-toggle" data-toggle="collapse"
+                        href="#parent-{{entry['FACILITY_ID']}}-{{entry['YEAR']}}"
+                        onclick={parentCompanyInfo({{entry['FACILITY_ID']}},{{entry['YEAR']}})} role="button"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        parent company information
+                    </a>
+                </p>
+                <div class="collapse" id="parent-{{entry['FACILITY_ID']}}-{{entry['YEAR']}}">
+                    <!-- <div class="card card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                        proident.
+                    </div> -->
+                </div>
+
+
+
                 <a href="https://enviro.epa.gov/enviro/ghgreport.html?pFacId={{ entry['FACILITY_ID'] }}&pSp=1&pReportingYear={{ entry['YEAR'] }}"
-                    target="_blank">more information</a>
+                    target="_blank">additional information</a>
             </li>
             {% endfor %}
         </ol>

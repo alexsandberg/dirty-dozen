@@ -22,11 +22,10 @@ def create_app():
             facility['CO2E_EMISSION'] = f"{facility['CO2E_EMISSION']:,}"
         return facilities
 
-    def parent_company_info(id):
-
+    def parent_company_info(id, year):
         # call API to get parent company info using facility id
         resp = requests.get(
-            f'https://data.epa.gov/efservice/V_PARENT_COMPANY_INFO/FACILITY_ID/{id}/json')
+            f'https://data.epa.gov/efservice/V_PARENT_COMPANY_INFO/FACILITY_ID/{id}/year/{year}/json')
 
         # return json response
         return resp.json()
@@ -80,7 +79,6 @@ def create_app():
             resp = requests.get(f'{url}/CO2E_EMISSION/>/{limit}/count')
             root = ET.fromstring(resp.text)
             count = int(root[0].text)
-            print('COUNT: ', count)
 
             if count < 12:
                 limit /= 5
@@ -89,16 +87,25 @@ def create_app():
                 facilities = resp.json()
                 break
 
+        # format co2 string of each facility
+        entries = format_co2_str(sort_entries(facilities)[0:12])
+
         data = {
             'state': state_code,
             'state_name': state_name,
             'state_geo': state_center[state_code],
             'year': year,
             'gas': gas_code,
-            'entries': format_co2_str(sort_entries(facilities)[0:12])
+            'entries': entries
         }
 
+        # print(data)
+
         return render_template('pages/results.html', data=data), 200
+
+    @app.route('/parent-company/<facility_id>/<year>')
+    def parent_company(facility_id, year):
+        return jsonify(parent_company_info(facility_id, year))
 
     @app.route('/about')
     def about():

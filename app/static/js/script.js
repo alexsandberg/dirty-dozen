@@ -5,6 +5,8 @@ let dataStr = data.replace(/\\/g, "");
 // parse json data from response
 let parsedData = JSON.parse(dataStr);
 
+// console.log(parsedData)
+
 // group entries by facility id
 let facilities = {}
 parsedData.entries.forEach(entry => {
@@ -125,4 +127,33 @@ const resultsClickHandler = (id) => {
             infowindow2.close(map, marker2)
         }
     })
+}
+
+
+const parentCompanyInfo = (facilityID, year) => {
+
+    // fetch parent company information
+    fetch(`/parent-company/${facilityID}/${year}`)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            let parentResults = $(`#parent-${facilityID}-${year}`);
+            parentResults.empty();
+
+            let results = document.createElement("div");
+            results.classList.add("card");
+            results.classList.add("card-body");
+            parentResults.append(results);
+
+            data.forEach((entry) => {
+                let str = `<p><span class="bold">Company:</span> ${entry.PARENT_COMPANY_NAME}<br />
+                ${entry.PARENT_CO_CITY}, ${entry.PARENT_CO_STATE}<br />
+                ${entry.PARENT_CO_PERCENT_OWN}% ownership
+                </p>`
+
+                parentResults.children(":first").append(str);
+            });
+
+        });
 }
