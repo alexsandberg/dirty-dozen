@@ -32,6 +32,11 @@ let markers = []
 // google maps init
 var map;
 function initMap() {
+
+    // initialize bounds
+    let bounds = new google.maps.LatLngBounds();
+
+    // create new map
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: parsedData.state_geo[0], lng: parsedData.state_geo[1] },
         zoom: zoom
@@ -51,18 +56,28 @@ function initMap() {
                 target="_blank">(more info)</a><br /></p>`
         })
 
+        // create new infowindow for each facility
         let infowindow = new google.maps.InfoWindow({
             content: contentString,
             id: facilityID
         });
 
+        // create new marker for each facility
         let marker = new google.maps.Marker({
             position: { lat: facilities[arr][0].LATITUDE, lng: facilities[arr][0].LONGITUDE },
             map: map
         });
 
+        // extend map bounds to encomass marker
+        let loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+        bounds.extend(loc);
+
         markers.push([marker, infowindow])
     })
+
+    // auto zoom and pan to fit map to markers
+    map.fitBounds(bounds);
+    map.panToBounds(bounds);
 
     // add marker event listeners for opening infowindows
     markers.forEach((markerInfo) => {
