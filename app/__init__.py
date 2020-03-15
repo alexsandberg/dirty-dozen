@@ -72,29 +72,42 @@ def create_app():
         # build base API request url
         url = build_epa_api_request(state_code, year, gas_code)
 
-        # get facilities by state and year
-        # query starts with high CO2E limit and goes lower if necessary to get top 12
-        # limit is higher if searching all states
-        if state == 'all':
-            limit = 15000000
+        # get initital results count for query without limiting CO2e
+        resp = requests.get(f'{url}/count')
+        root = ET.fromstring(resp.text)
+        count = int(root[0].text)
+
+        # if count is low, get results. otherwise limit by CO2e
+        if count < 50:
+            resp = requests.get(f'{url}/json')
+            facilities = resp.json()
         else:
-            limit = 500000
-        while True:
-
-            # get entries count before requesting actual data
-            resp = requests.get(f'{url}/CO2E_EMISSION/>/{limit}/count')
-            root = ET.fromstring(resp.text)
-            count = int(root[0].text)
-
-            if count < 12:
-                limit /= 5
+            # query starts with high CO2E limit and goes lower if necessary
+            # limit is higher if searching all states
+            if state == 'all':
+                limit = 15000000
             else:
-                resp = requests.get(f'{url}/CO2E_EMISSION/>/{limit}/json')
-                facilities = resp.json()
-                break
+                limit = 500000
+            while True:
+                # get entries count before requesting actual data
+                resp = requests.get(f'{url}/CO2E_EMISSION/>/{limit}/count')
+                root = ET.fromstring(resp.text)
+                count = int(root[0].text)
 
-        # format co2 string of each facility
-        entries = format_co2_str(sort_entries(facilities)[0:12])
+                # if count is too low, lower the limit. otherwise, get results
+                if count < 12:
+                    limit /= 5
+                else:
+                    resp = requests.get(f'{url}/CO2E_EMISSION/>/{limit}/json')
+                    facilities = resp.json()
+                    break
+
+        # return top 12 (or all entries if less than 12)
+        if len(facilities) > 12:
+            # format co2 string of each facility
+            entries = format_co2_str(sort_entries(facilities)[0:12])
+        else:
+            entries = format_co2_str(sort_entries(facilities))
 
         data = {
             'state': state_code,
